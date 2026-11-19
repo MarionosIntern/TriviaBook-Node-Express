@@ -7,12 +7,13 @@ function hasValue(value){
     return value !== undefined && value !== null && String(value).trim() !== '';
 }
 
-
+//Parses a positive integer from a string/number or returns null
 function parseInt(value){
     const n = Number(value);
     return n > 0 && n <= 2147483647 ? n : null;
 }
 
+//GET /topics
 async function getTopics(req, res, next){
     try{
         res.json(await model.getAllTopics());
@@ -21,6 +22,7 @@ async function getTopics(req, res, next){
     }
 }
 
+//GET /topic/:topic
 async function getQuestionsInTopic(req, res, next){
     try{
         const { topic } = req.params;
@@ -51,6 +53,7 @@ async function getQuestionsInTopic(req, res, next){
     }
 }
 
+//GET /random
 async function getRandomQuestion(req, res, next){
     try{
         const question = await model.getRandomQuestion();
@@ -63,6 +66,7 @@ async function getRandomQuestion(req, res, next){
     }
 }
 
+//POST /add  body: { id, guess }
 async function checkAnswer(req, res, next){
     try{
         const { id, guess } = req.body || {};
@@ -86,6 +90,7 @@ async function checkAnswer(req, res, next){
     }
 }
 
+//POST /question/add  body: { topic, question, answer, difficulty }
 async function addQuestion(req, res, next) {
     try{
         const body = req.body || {};
@@ -105,6 +110,8 @@ async function addQuestion(req, res, next) {
             difficulty
         });
 
+
+        //Respond with an updated list of questions for that topic
         res.status(201).json(await model.getQuestionsByTopic(String(body.topic)));
     }catch(err){
         next(err);

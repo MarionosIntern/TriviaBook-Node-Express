@@ -20,6 +20,7 @@ const questionByTopic = {
     geography: geographyQuestions
 };
 
+//Loads the seed data
 async function seed(){
     const client = await pool.connect();
     try{

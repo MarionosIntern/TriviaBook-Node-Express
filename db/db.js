@@ -1,3 +1,5 @@
+
+//Creates a single shared PostgreSQL connection using DATABASE_URL
 require('dotenv').config();
 const {Pool} = require('pg');
 

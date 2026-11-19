@@ -17,10 +17,10 @@ A fullstack trivia application: **Node/Express API** with **Postgres** database 
 |column | type | attributes |
 |-------|------|------------|
 | id    |serial| primary key|
-| topic_id | INTEGER | foreign key -> topics(id), `ON DELETE CASCADE` |
-| question | TEXT    | not null |
-| answer| TEXT | not null |
-| difficulty | TEXT | not null, `CHECK` in (`easy`, `medium`, `hard`) |
+| topic_id | integer | foreign key -> topics(id), `on delete cascade` |
+| question | text    | not null |
+| answer| text | not null |
+| difficulty | text | not null, `check` in (`easy`, `medium`, `hard`) |
 
 
 create index if not exist idx_question_topic_id on questions(topic_id);
@@ -34,12 +34,12 @@ create index if not exist idx_question_topic_id on questions(topic_id);
 6. `npm start`
 
 ## Endpoints
-1. http://localhost:3000/TriviaBook-Node-Express/topics
-2. http://localhost:3000/TriviaBook-Node-Express/topic/science
-3. http://localhost:3000/TriviaBook-Node-Express/random
-4. http://localhost:3000/TriviaBook-Node-Express/answer 
+1. `GET` http://localhost:3000/TriviaBook-Node-Express/topics
+2. `GET` http://localhost:3000/TriviaBook-Node-Express/topic/science
+3. `GET` http://localhost:3000/TriviaBook-Node-Express/random
+4. `POST` http://localhost:3000/TriviaBook-Node-Express/answer 
 JSON body - { "id": 1, "guess": "Mars" }
-5. http://localhost:3000/TriviaBook-Node-Express/question/add
+5. `POST` http://localhost:3000/TriviaBook-Node-Express/question/add
 JSON body - {
                 "topic": "mathematics", 
                 "question": "What type of problems do Laplace Transforms help solve?",

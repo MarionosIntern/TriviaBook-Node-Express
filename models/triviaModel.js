@@ -2,20 +2,23 @@ const pool = require('../db/db');
 
 const VALID_DIFF = ['easy', 'medium', 'hard'];
 
+//Topics are trimmed and lowercased for easier storage and lookups
 function normalizeTopic(topic){
     return String(topic).trim().toLowerCase();
 }
 
+//Returns all topics
 async function  getAllTopics(){
     const {rows} = await pool.query('select name from topics order by name');
     return rows.map((row) => row.name);
 }
 
+//Returns whether the topics exists
 async function topicExists(topic){
     const {rowCount} = await pool.query('select 1 from topics where name = $1', [normalizeTopic(topic)]);
     return rowCount > 0;
 }
-
+//Returns questions filtered by topic and optionaly by difficulty and a limit of at least one 
 async function getQuestionsByTopic(topic, {difficulty, limit} = {}){
     const params = [normalizeTopic(topic)];
     let sql = `select q.id, t.name as topic, q.question, q.answer, q.difficulty
@@ -35,7 +38,7 @@ async function getQuestionsByTopic(topic, {difficulty, limit} = {}){
     const {rows} = await pool.query(sql, params);
     return rows;
 }
-
+//Returns a random question and intentionally leaves out the answer
 async function getRandomQuestion(){
     const { rows } = await pool.query(
         `select q.id, t.name as topic, q.question, q.difficulty
@@ -47,11 +50,12 @@ async function getRandomQuestion(){
     return rows[0] || null;
 }
 
+
 async function getQuestionById(id){
     const { rows } = await pool.query(`select id, answer from questions where id = $1`, [id]);
     return rows[0] || null;
 }
-
+//Inserts a new question, creating the topic if it doesn't exist and requires an answer and difficulty
 async function addQuestion({topic, question, answer, difficulty}){
     const { rows } = await pool.query(
         `insert into topics (name) values ($1)
