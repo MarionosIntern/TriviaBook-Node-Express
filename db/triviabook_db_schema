@@ -1,0 +1,18 @@
+
+create table if not exists topics(
+  id       serial,
+  name     text not null unique,
+  primary key(id)
+);
+
+create table if not exists questions(
+  id         serial,
+  topic_id   integer not null,
+  question   text not null,
+  answer     text not null,
+  difficulty text not null check (difficulty in ('easy', 'medium', 'hard')),
+  primary key(id),
+  foreign key(topic_id) references topics(id) on delete cascade
+);
+
+create index if not exist idx_question_topic_id on questions(topic_id);

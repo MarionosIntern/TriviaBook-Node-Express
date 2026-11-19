@@ -1,25 +1,27 @@
 # TriviaBook-Node-Express
 A fullstack trivia application: **Node/Express API** with **Postgres** database with Neon and a simple, but interactive frontend. 
 
-**Live Site:** 
+**Live Site:** `https://triviabook-node-express.onrender.com`
 
 ## TriviaBook Database  Schema
 
-create table if not exists topics(
-  id       serial,
-  name     text not null unique,
-  primary key(id)
-);
+**topics**
 
-create table if not exists questions(
-  id         serial,
-  topic_id   integer not null,
-  question   text not null,
-  answer     text not null,
-  difficulty text not null check (difficulty in ('easy', 'medium', 'hard')),
-  primary key(id),
-  foreign key(topic_id) references topics(id) on delete cascade
-);
+|column | type | attributes |
+|-------|------|------------|
+| id    |serial| primary key|
+| name  | text | not null unique|
+
+**questions**
+
+|column | type | attributes |
+|-------|------|------------|
+| id    |serial| primary key|
+| topic_id | INTEGER | foreign key -> topics(id), `ON DELETE CASCADE` |
+| question | TEXT    | not null |
+| answer| TEXT | not null |
+| difficulty | TEXT | not null, `CHECK` in (`easy`, `medium`, `hard`) |
+
 
 create index if not exist idx_question_topic_id on questions(topic_id);
 
