@@ -58,8 +58,8 @@ $('guessBtn').onclick = async () => {
 $('searchBtn').onclick = async () =>{
     const topic = $('topicSelect').value;
     const params = new URLSearchParams();
-    if($('difficultySelect').value){
-        params.set('difficulty', $('difficultySelect').value);
+    if($('diffSelect').value){
+        params.set('difficulty', $('diffSelect').value);
     }
     if($('limitInput').value){
         params.set('limit', $('limitInput').value);
@@ -69,7 +69,7 @@ $('searchBtn').onclick = async () =>{
         $('searchResults').innerHTML = '';
         return say($('searchMsg'), data.error, false);
     }
-    say($('searchMsg'), data.length + 'question(s)', true);
+    say($('searchMsg'), data.length + ' question(s)', true);
     renderQuestions(data);
 };
 
@@ -82,7 +82,7 @@ $('addForm').onsubmit = async (e) => {
             topic: $('addTopic').value,
             question: $('addQuestion').value,
             answer: $('addAnswer').value,
-            difficulty: $('addDifficulty').value
+            difficulty: $('addDiff').value
         })
     });
     if(!ok){
