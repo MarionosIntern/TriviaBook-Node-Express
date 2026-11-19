@@ -36,7 +36,7 @@ async function getQuestionsInTopic(req, res, next){
 
         if(req.query.difficulty !== undefined){
             const difficulty = String(req.query.difficulty).trim().toLowerCase();
-            if((!model.VALID_DIFF).includes(difficulty)){
+            if(!model.VALID_DIFF.includes(difficulty)){
                 return res.status(400).json({error: `difficulty must be one of: ${model.VALID_DIFF.join(' , ')}.`});
             }
             options.difficulty = difficulty;
