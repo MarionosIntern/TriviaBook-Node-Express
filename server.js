@@ -1,6 +1,6 @@
 
 const path = require('path');
-const expres = require('express');
+const express = require('express');
 const triviaRoutes = require('./routes/triviaRoutes');
 
 const app = express();

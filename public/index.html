@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <title>TriviaBook</title>
+</head>
+<body>
+    <h1>Triviabook</h1>
+    <p>Welcome to Triviabook! Start with a random question and make sure to check your answer.</p>
+
+    <section>
+        <h2>Random Question</h2>
+        <button id = "rdmBtn" >Get a Random Question</button>
+        <p id = "rdmQ" ></p>
+        <div id = "guessBox" hidden>
+            <input id = "guessInput" placeholder="Your Answer"/>
+            <button id = "guessBtn">Check answer</button>
+        </div>
+        <p id ="guessResult" class = "msg"></p>
+    </section>
+
+    
+
+    <section>
+        <h2>Topics</h2>
+        <p>You want to filter by topic and customize your trivia? Go right ahead!</p>
+        <p id ="topicList"></p>
+        <label>Topic <select id="topicSelect"></select></label>
+        <label>Difficulty
+            <select id="diffSelect">
+                <option>any</option><option>easy</option><option>medium</option><option>hard</option>
+            </select>
+        </label>
+        <label>Limit <input id ="lmitInput" type="number" min = "1"/></label>
+        <button id = "searchBtn">Search</button>
+        <p id = "searchMsg" class = "msg"></p>
+        <ul id = "searchResults"></ul>
+    </section>
+
+    <section>
+        <h2>Add A Question</h2>
+        <p>Share your questions to add to our book and test other users.</p>
+        <form id ="addForm">
+            <input id = "addTopic" placeholder = "Topic required"/>
+            <input id = "addQuestion" placeholder = "Question required"/>
+            <input id = "addAnswer" placeholder = "Answer required"/>
+            <select  id="addDiff"><option>easy</option><option>medium</option><option>hard</option></select>
+            <button type="submit">Add</button>
+        </form>
+        <p id = "addMsg" class = "msg"></p>
+    </section>
+</body>
+</html>
