@@ -55,6 +55,44 @@ $('guessBtn').onclick = async () => {
     say($('guessResult'), data.correct ? 'Correct!' : 'Incorrect. The Answer is: ' + data.correctAnswer, data.correct);
 };
 
+$('searchBtn').onclick = async () =>{
+    const topic = $('topicSelect').value;
+    const params = new URLSearchParams();
+    if($('difficultySelect').value){
+        params.set('difficulty', $('difficultySelect').value);
+    }
+    if($('limitInput').value){
+        params.set('limit', $('limitInput').value);
+    }
+    const { ok, data } = await api('/topic/' + encodeURIComponent(topic) + '?' + params);
+    if(!ok){
+        $('searchResults').innerHTML = '';
+        return say($('searchMsg'), data.error, false);
+    }
+    say($('searchMsg'), data.length + 'question(s)', true);
+    renderQuestions(data);
+};
+
+$('addForm').onsubmit = async (e) => {
+    e.preventDefault();
+    const { ok,data } = await api('/question/add', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            topic: $('addTopic').value,
+            question: $('addQuestion').value,
+            answer: $('addAnswer').value,
+            difficulty: $('addDifficulty').value
+        })
+    });
+    if(!ok){
+        return say($('addMsg'), data.error, false);
+    }
+    say($('addMsg'), 'Added! "' + data[0].topic + '" now has ' + data.length + ' question(s).', true);
+    $('addForm').reset();
+    loadTopics();
+};
+
 loadTopics();
 
 
